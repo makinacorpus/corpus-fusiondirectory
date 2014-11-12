@@ -1,0 +1,98 @@
+# This file contains default values which are used
+# by the salt states deploying your project.
+# you may copy them to your relevant PILLAR file
+# before editing them.
+# If you need to add variables, this is where to begin.
+# Please keep defaults in there, but real passwords
+# must be putted inside pillar
+#
+# replace project_name in your pillar by
+# the current projectname
+# you can also merge parts of this file
+# with the relevant pillar
+
+# makina-states mysql configuration (copy in your pillar,
+#                                    uncomment and edit)
+# makina-states.services.db.mysql.available_mem: 1500
+# corpus mysql project configuration
+makina-projects.projectname:
+  data:
+    admin_allowed_ips: []
+    index: index.php
+    domain: '{fqdn}'
+    server_aliases: []
+    mail: sysadmin@foo.com
+    cron_periodicity: "*/30 * * * *"
+    password: "secret"
+    www_dir: '{project_root}/www'
+    htaccess: '/etc/{name}.webaccess'
+    apache_vhost:
+      vh_in_template_source: "salt://makina-projects/{name}/files/virtualhost.conf"
+      vhost_basenase: "{name}"
+      fpm_sock: "{fpm_sock}"
+      allowed_files: autocomplete.php|class_passwordRecovery.inc|getbin.php|geticon.php|index.php|logout.php|main.php|progress.php|recovery.php|setup.php"
+    # http_users:
+    #   - root: foo
+    packages:
+      - fusiondirectory
+      - fusiondirectory-plugin-gpg
+      - fusiondirectory-plugin-gpg-schema
+      - php-net-imap
+      - fusiondirectory-plugin-mail
+      - fusiondirectory-plugin-mail-schema
+      - fusiondirectory-plugin-ssh
+      - fusiondirectory-plugin-ssh-schema
+      - fusiondirectory-plugin-sudo
+      - fusiondirectory-plugin-sudo-schema
+      - fusiondirectory-plugin-systems
+      - fusiondirectory-plugin-systems-schema
+      - fusiondirectory-schema
+      - php-mdb2 
+      - php-mdb2-schema
+      - php-mdb2-driver-mysql 
+      - php-mdb2-driver-pgsql
+      - fusiondirectory-smarty3-acl-render
+    fpm_sock: "{project_root}/var/run/fpm.sock"
+    fpm_pool:
+      pool_name: "{name}"
+      open_basedir:
+        - "/usr/share/php"
+        - "/usr/share/fusiondirectory"
+        - "/var/run/fusiondirectory"
+        - "/var/spool/fusiondirectory"
+        - "/var/cache/fusiondirectory"
+        - "/etc/fusiondirectory"
+        - "/var/tmp"
+        - "/tmp"
+        - "{data_root}/www"
+        - "{data_root}/var/log"
+        - "{data_root}/var/tmp"
+        - "{data_root}/var/private"
+        - "{project_root}/www"
+        - "{project_root}/lib"
+        - "{project_root}/var/tmp"
+        - "{project_root}/var/private"
+      include_path:
+        - "/usr/share/fusiondirectory"
+        - "/usr/share/fusiondirectory/include"
+        - "/usr/share/fusiondirectory/html"
+        - "{project_root}/www"
+        - "{project_root}/lib"
+      socket_name: "{fpm_sock}"
+      session_auto_start: 0
+      allow_url_fopen: 1
+      upload_max_filesize: "25000M"
+      max_input_vars: 3000
+      fpm_user: "{user}"
+      fpm_group: "www-data"
+      memory_limit: "256M"
+      modules:
+        apc:
+          user_entries_hint: 1000
+          num_files_hint: 2000
+          ttl: 0
+          user_ttl: 300
+          gc_ttl: 0
+          shm_size: "64M"
+
+# vim:set ft=yaml:
