@@ -4,8 +4,8 @@
 fdrepo1:
   pkgrepo.managed:
     - humanname: fd ppa
-    - name: deb http://repos.fusiondirectory.org/debian-extra stable main
-    - dist: stable
+    - name: deb http://repos.fusiondirectory.org/debian-extra wheezy main
+    - dist: wheezy
     - file: /etc/apt/sources.list.d/fde.list
     - keyid: E184859262B4981F
     - keyserver: keyserver.ubuntu.com
@@ -14,8 +14,8 @@ fdrepo1:
 fdrepo2:
   pkgrepo.managed:
     - humanname: fd ppa
-    - name: deb http://repos.fusiondirectory.org/debian stable main
-    - dist: stable
+    - name: deb http://repos.fusiondirectory.org/debian wheezy main
+    - dist: wheezy
     - file: /etc/apt/sources.list.d/fd.list
     - keyid: ADD3A1B88B29AE4A
     - keyserver: keyserver.ubuntu.com
