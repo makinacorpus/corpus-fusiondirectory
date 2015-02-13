@@ -60,6 +60,7 @@ makina-projects.projectname:
         - "/usr/share/fusiondirectory"
         - "/var/run/fusiondirectory"
         - "/var/spool/fusiondirectory"
+        - "/usr/share/fusiondirectory/html"
         - "/var/cache/fusiondirectory"
         - "/etc/fusiondirectory"
         - "/var/tmp"

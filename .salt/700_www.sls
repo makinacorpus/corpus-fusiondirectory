@@ -13,5 +13,12 @@ echo reboot:
       - mc_proxy: makina-apache-pre-restart
       - mc_proxy: makina-apache-php-pre-restart
 
+stalecache:
+  cmd.run:
+    - name: fusiondirectory-setup --update-cache --update-locales
+    - watch_in:
+      - mc_proxy: makina-apache-pre-restart
+      - mc_proxy: makina-apache-php-pre-restart
+
 {{apache.virtualhost(cfg.data.domain, cfg.data.www_dir, **cfg.data.apache_vhost)}}
 {{php.fpm_pool(cfg.data.domain, cfg.data.www_dir, **cfg.data.fpm_pool)}}

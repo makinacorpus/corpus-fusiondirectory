@@ -74,6 +74,14 @@
                   setfacl -m g:{{cfg.group}}:rwx "${f}"
                   setfacl -m u:{{salt['mc_apache.settings']().httpd_user}}:rwx "${f}"
              done
+             {{locs.resetperms}} -q\
+               --fmode 771 --dmode 771 \
+               -u www-data -g www-data\
+               --paths "/var/cache/fusiondirectory"\
+               --users www-data:rwx \
+               --users {{cfg.user}}:rwx \
+               --groups {{cfg.group}}:rwx \
+               --groups {{salt['mc_apache.settings']().httpd_user}}:r-x;
              {{locs.resetperms}} -q --no-recursive\
                --fmode 771 --dmode 771 \
                -u {{cfg.user}} -g {{cfg.group}}\
