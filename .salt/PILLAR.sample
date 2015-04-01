@@ -18,6 +18,16 @@
 makina-projects.projectname:
   data:
     admin_allowed_ips: []
+    cfg_dn: "ou=fusiondirectory,ou=configs,ou=systems,dc=x,dc=x"
+    cfg_uri: "ldap://mastersalt.makina-corpus.net:389/dc=x,dc=x"
+    cfg_admin: "cn=admin,dc=x,dc=x"
+    cfg_admin_pw: "x"
+    debug_level: "8"
+    force_ssl: "FALSE"
+    display_errors: "TRUE"
+    logging: "TRUE"
+    accountPrimaryAttribute: "uid"
+ 
     index: index.php
     domain: '{fqdn}'
     server_aliases: []

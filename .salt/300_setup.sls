@@ -134,6 +134,17 @@ config-{{i}}:
              {{scfg}}
 {% endfor %}
 
+config-fdconf:
+  file.managed:
+    - source: salt://makina-projects/{{cfg.name}}/files/fusiondirectory.conf
+    - name: /etc/fusiondirectory/fusiondirectory.conf
+    - template: jinja
+    - mode: 750
+    - user: root
+    - group: www-data
+    - defaults:
+        project: {{cfg.name}}
+
 {{cfg.name}}-l-dirs-fd:
   file.symlink:
     - name: {{cfg.project_root}}/www
