@@ -11,15 +11,24 @@
 # you can also merge parts of this file
 # with the relevant pillar
 
-# makina-states mysql configuration (copy in your pillar,
-#                                    uncomment and edit)
-# makina-states.services.db.mysql.available_mem: 1500
-# corpus mysql project configuration
+
+# UN COMMENT AND ADAPT IT IN  PILLAR (see mc_pillar.settings)
+# makina-states.services.dns.slapd: true
+# makina-states.services.dns.slapd.syncrepl:
+#   binddn: "cn=x,ou=Virtual,ou=people,dc=x,dc=x"
+#   credentials: "x"
+# makina-states.services.dns.slapd.cert_domain: "ldap.x.net"
+# makina-states.services.dns.slapd.dn: "dc=x,dc=x"
+# makina-states.services.dns.slapd.root_dn: "cn=admin,dc=x,dc=x"
+# makina-states.services.dns.slapd.root_pw: "x"
+# makina-states.services.dns.slapd.config_pw: "x"
+# makina-states.services.dns.slapd.mode: "master"
+
 makina-projects.projectname:
   data:
     admin_allowed_ips: []
     cfg_dn: "ou=fusiondirectory,ou=configs,ou=systems,dc=x,dc=x"
-    cfg_uri: "ldap://mastersalt.makina-corpus.net:389/dc=x,dc=x"
+    cfg_uri: "ldap://xxx.net:389/dc=x,dc=x"
     cfg_admin: "cn=admin,dc=x,dc=x"
     cfg_admin_pw: "x"
     debug_level: "8"
