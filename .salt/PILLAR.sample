@@ -48,7 +48,7 @@ makina-projects.projectname:
     apache_vhost:
       vh_content_source: "salt://makina-projects/{name}/files/virtualhost.conf"
       vh_top_source: "salt://makina-projects/{name}/files/top.conf"
-      vhost_basenase: "{name}"
+      vhost_basenase: "corpus-fd-{name}"
       fpm_sock: "{fpm_sock}"
       allowed_files: autocomplete.php|class_passwordRecovery.inc|getbin.php|geticon.php|index.php|logout.php|main.php|progress.php|recovery.php|setup.php"
     # http_users:
