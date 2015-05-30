@@ -1,5 +1,5 @@
+{% import "makina-states/_macros/h.jinja" as h with context %}
 {% set cfg = opts['ms_project'] %}
-{% set scfg = salt['mc_utils.json_dump'](cfg)%}
 
 fdrepo1:
   pkgrepo.managed:
@@ -44,3 +44,9 @@ fd-activatemods:
       - pkg: fd-pkgs
     - name: for i in imap imagick readline json ldap recode curl;do php5enmod  -s cli $i;php5enmod  -s cli $i;done
 
+
+{{ h.deliver_config_files(
+     cfg.data.get('configs', {}),
+     user='root',
+     group='root',
+     mode='640', prefix='fd-')}}

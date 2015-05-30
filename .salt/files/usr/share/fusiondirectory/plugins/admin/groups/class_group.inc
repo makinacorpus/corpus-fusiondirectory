@@ -67,8 +67,8 @@ class group extends plugin
   var $host= array();
 
   /* attribute list for save action */
-  var $attributes= array("cn", "description", "gidNumber","memberUid","sambaGroupType","sambaSID","host");
-  var $objectclasses= array("top", "posixGroup");
+  var $attributes= array("cn", "description", "gidNumber","memberUid","sambaGroupType","sambaSID","host", "member");
+  var $objectclasses= array("top", "posixGroup", "groupOfNames");
 
   var $CopyPasteVars  = array("force_gid","fon_group","smbgroup","groupType","sambaSID","sambaDomainName","SID","nagios_group","sambaGroupType");
 
@@ -887,6 +887,18 @@ class group extends plugin
     /* New accounts need proper 'dn', propagate it to remaining objects */
     if ($this->dn == 'new'){
       $this->dn= 'cn='.$this->cn.','.get_groups_ou().$this->base;
+    }
+
+    /* Add member dn's for RFC2307bis Support */
+    $this->attrs['member'] = array();
+    if (count($this->memberUid)){
+      foreach($this->attrs['memberUid'] as $uid) {
+        if(isset($this->dnMapping[$uid])){
+          $this->attrs['member'][]= $this->dnMapping[$uid];
+        }
+      }
+    } else {
+      $this->attrs['member'][]= $this->config->current['ADMINDN'];
     }
 
     /* Save data. Using 'modify' implies that the entry is already present, use 'add' for

@@ -2836,12 +2836,12 @@ function check_schema($cfg)
   $checks['posixGroup']['MSG']              = "";
   $checks['posixGroup']['INFO']             = "";
 
-  /* Detect obsolete schema configurations */
-  if (!isset($tmp['posixGroup']['STRUCTURAL'])) {
-    $checks['posixGroup']['STATUS']           = FALSE;
-    $checks['posixGroup']['MSG']              = _("You are using the obsolete rfc2307bis schema from previous FusionDirectory versions.");
-    $checks['posixGroup']['INFO']             = _("The objectClass 'posixGroup' must be STRUCTURAL");
-  }
+  // /* Detect obsolete schema configurations */
+  // if (!isset($tmp['posixGroup']['STRUCTURAL'])) {
+  //   $checks['posixGroup']['STATUS']           = FALSE;
+  //   $checks['posixGroup']['MSG']              = _("You are using the obsolete rfc2307bis schema from previous FusionDirectory versions.");
+  //   $checks['posixGroup']['INFO']             = _("The objectClass 'posixGroup' must be STRUCTURAL");
+  // }
 
   return $checks;
 }

@@ -36,7 +36,7 @@ makina-projects.projectname:
     display_errors: "TRUE"
     logging: "TRUE"
     accountPrimaryAttribute: "uid"
- 
+
     index: index.php
     domain: '{fqdn}'
     server_aliases: []
@@ -53,6 +53,13 @@ makina-projects.projectname:
       allowed_files: autocomplete.php|class_passwordRecovery.inc|getbin.php|geticon.php|index.php|logout.php|main.php|progress.php|recovery.php|setup.php"
     # http_users:
     #   - root: foo
+    configs:
+      {% for i in ["/usr/share/fusiondirectory/include/functions.inc",
+                   "/usr/share/fusiondirectory/plugins/admin/groups/class_group.inc"] %}
+      "{{i}}":
+        source: "salt://makina-projects/{name}/files/{{i}}"
+        mode: "644"
+      {% endfor %}
     packages:
       - fusiondirectory
       - fusiondirectory-plugin-gpg
@@ -67,9 +74,9 @@ makina-projects.projectname:
       - fusiondirectory-plugin-systems
       - fusiondirectory-plugin-systems-schema
       - fusiondirectory-schema
-      - php-mdb2 
+      - php-mdb2
       - php-mdb2-schema
-      - php-mdb2-driver-mysql 
+      - php-mdb2-driver-mysql
       - php-mdb2-driver-pgsql
       - fusiondirectory-smarty3-acl-render
     fpm_sock: "{project_root}/var/run/fpm.sock"
@@ -115,5 +122,6 @@ makina-projects.projectname:
           user_ttl: 300
           gc_ttl: 0
           shm_size: "64M"
+
 
 # vim:set ft=yaml:
