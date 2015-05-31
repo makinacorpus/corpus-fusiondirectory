@@ -27,8 +27,8 @@ def main(project='fusiondirectory', **kwargs):
     _s = __salt__
     cfg = copy.deepcopy(_s['mc_project.get_configuration'](project))
     data = cfg['data']
-    ldap_uri = data['remove_rfc2307']['uri']
-    ldap_kw = data['remove_rfc2307']['kw']
+    ldap_uri = data['ldap_client']['uri']
+    ldap_kw = data['ldap_client']['kw']
     candidates = query(ldap_uri, 'objectClass=posixGroup',
                        retrieve_attributes=['memberUid', 
                                             'objectClass',
@@ -49,5 +49,4 @@ def main(project='fusiondirectory', **kwargs):
                     delta.append(m)
     log.error('those are even dangling memberuids not attached to members')
     log.error(pprint.pformat(deltas))
-    import pdb;pdb.set_trace()  ## Breakpoint ##
 # vim:set et sts=4 ts=4 tw=80:

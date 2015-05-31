@@ -122,6 +122,12 @@ makina-projects.projectname:
           user_ttl: 300
           gc_ttl: 0
           shm_size: "64M"
-
-
+    short_mail: true
+    ldap_client:
+      uri: "ldap://xxx"
+      kw:
+        user: "{cfg_admin}"
+        password: "{cfg_admin_pw}"
+        tls: false
+        base: "dc=xx,dc=xx"
 # vim:set ft=yaml:

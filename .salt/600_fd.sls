@@ -50,3 +50,28 @@ fd-activatemods:
      user='root',
      group='root',
      mode='640', prefix='fd-')}}
+
+{% if cfg.data.get('short_mail', False) %}
+make-short-cron-2:
+  file.managed:
+    - name: "{{cfg.data_root}}/scron.sh"
+    - mode: 700
+    - user: root
+    - group: root
+    - contents: |
+                #!/bin/bash
+                salt-call --local -lall short_mail.main >log 2>&1
+                if [ "x$?" != "x0" ];then
+                cat log
+                fi
+                rm -f log
+
+make-short-cron-1:
+  file.managed:
+    - name: "/etc/cron.d/{{cfg.name}}scron"
+    - mode: 700
+    - user: root
+    - group: root
+    - contents: |
+                */10 * * * * * root su root -c "{{cfg.data_root}}/scron.sh"
+{% endif %}
