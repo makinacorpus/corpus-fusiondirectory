@@ -55,12 +55,14 @@ makina-projects.projectname:
     #   - root: foo
     configs: {}
     # only needed for fd 1.8.0.6
-    #  {% for i in ["/usr/share/fusiondirectory/include/functions.inc",
-    #               "/usr/share/fusiondirectory/plugins/admin/groups/class_group.inc"] %}
-    #  {% endfor %}
+    {% for i in ["/usr/share/fusiondirectory/include/functions.inc",
+                 "/usr/share/fusiondirectory/plugins/admin/groups/class_group.inc"] %}
+    {% endfor %}
+    {#
     #  "{{i}}":
     #    source: "salt://makina-projects/{name}/files/{{i}}"
     #    mode: "644"
+    #}
     packages:
       - fusiondirectory
       - fusiondirectory-plugin-gpg
