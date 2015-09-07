@@ -49,11 +49,7 @@ def main(project='fusiondirectory', **kwargs):
                 'mc_ldap.get_handler'
             ](ldap_uri, **ldap_kw) as handler:
                 conn = handler.connect()
-                try:
-                    ret = conn.modify_s(dn, modl)
-                except Exception:
-                    import pdb;pdb.set_trace()  ## Breakpoint ##
-
+                ret = conn.modify_s(dn, modl)
                 log.info('{0} group migrated to fdGroupMail'.format(data['cn']))
                 deltas += "{0}".format(modl)
     return deltas
