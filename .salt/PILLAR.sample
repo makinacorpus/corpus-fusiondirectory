@@ -53,13 +53,14 @@ makina-projects.projectname:
       allowed_files: autocomplete.php|class_passwordRecovery.inc|getbin.php|geticon.php|index.php|logout.php|main.php|progress.php|recovery.php|setup.php"
     # http_users:
     #   - root: foo
-    configs:
-      {% for i in ["/usr/share/fusiondirectory/include/functions.inc",
-                   "/usr/share/fusiondirectory/plugins/admin/groups/class_group.inc"] %}
-      "{{i}}":
-        source: "salt://makina-projects/{name}/files/{{i}}"
-        mode: "644"
-      {% endfor %}
+    configs: {}
+    # only needed for fd 1.8.0.6
+    #  {% for i in ["/usr/share/fusiondirectory/include/functions.inc",
+    #               "/usr/share/fusiondirectory/plugins/admin/groups/class_group.inc"] %}
+    #  {% endfor %}
+    #  "{{i}}":
+    #    source: "salt://makina-projects/{name}/files/{{i}}"
+    #    mode: "644"
     packages:
       - fusiondirectory
       - fusiondirectory-plugin-gpg
