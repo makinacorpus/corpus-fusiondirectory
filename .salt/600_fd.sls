@@ -51,7 +51,13 @@ fd-activatemods:
      group='root',
      mode='640', prefix='fd-')}}
 
-{% if cfg.data.get('short_mail', False) %}
+{% if not cfg.data.get('short_mail', False) %}
+make-short-cron-2:
+  file.absent:
+    - names:
+      - "{{cfg.data_root}}/scron.sh"
+      - "/etc/cron.d/{{cfg.name}}scron"
+{%else %}
 make-short-cron-2:
   file.managed:
     - name: "{{cfg.data_root}}/scron.sh"

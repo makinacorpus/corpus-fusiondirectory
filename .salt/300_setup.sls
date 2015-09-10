@@ -48,7 +48,6 @@ prepreqs-{{cfg.name}}:
       - libxml2-dev
       - libxslt1-dev
       - libopenjpeg-dev
-      - libopenjpeg2
       - m4
       - man-db
       - pkg-config
@@ -120,19 +119,6 @@ prepreqs-{{cfg.name}}:
     - watch:
       - file: {{cfg.name}}-dirs
 {% endfor %}
-{% for i in data.get('configs', []) %}
-config-{{i}}:
-  file.managed:
-    - source: salt://makina-projects/{{cfg.name}}/files/{{i}}
-    - name: {{cfg.project_root}}/www/{{i}}
-    - template: jinja
-    - mode: 750
-    - user: {{cfg.user}}
-    - group: {{cfg.group}}
-    - defaults:
-        cfg: |
-             {{scfg}}
-{% endfor %}
 
 config-fdconf:
   file.managed:
@@ -141,6 +127,7 @@ config-fdconf:
     - template: jinja
     - mode: 750
     - user: root
+    - makedirs: true
     - group: www-data
     - defaults:
         project: {{cfg.name}}
