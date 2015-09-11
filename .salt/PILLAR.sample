@@ -103,6 +103,8 @@ makina-projects.projectname:
         - "{project_root}/lib"
         - "{project_root}/var/tmp"
         - "{project_root}/var/private"
+        - "/usr/bin"
+        - "/etc/fusiondirectory"
       include_path:
         - "/usr/share/fusiondirectory"
         - "/usr/share/fusiondirectory/include"
