@@ -7,4 +7,5 @@ private
 tmp
 var
 www
-
+/dl*
+/release

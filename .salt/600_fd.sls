@@ -1,47 +1,67 @@
 {% import "makina-states/_macros/h.jinja" as h with context %}
 {% set cfg = opts['ms_project'] %}
+{% set data = cfg.data %}
 
-fdrepo1:
-  pkgrepo.managed:
-    - humanname: fd ppa
-    - name: deb http://repos.fusiondirectory.org/debian-extra wheezy main
-    - dist: wheezy
-    - file: /etc/apt/sources.list.d/fde.list
-    - keyid: E184859262B4981F
-    - keyserver: keyserver.ubuntu.com
-
-
-fdrepo2:
-  pkgrepo.managed:
-    - humanname: fd ppa
-    - name: deb http://repos.fusiondirectory.org/debian wheezy main
-    - dist: wheezy
-    - file: /etc/apt/sources.list.d/fd.list
-    - keyid: ADD3A1B88B29AE4A
-    - keyserver: keyserver.ubuntu.com
-    - require:
-      - pkgrepo: fdrepo1
-fd-pre-pkgs:
-  pkg.latest:
-    - watch:
-      - pkgrepo: fdrepo1
-      - pkgrepo: fdrepo2
-    - pkgs:
-      - fusiondirectory-archive-keyring
+fdpin:
+  file.absent:
+    - names:
+      - /etc/apt/preferences.d/fd.pref
+      - /etc/apt/sources.list.d/fde.list
+      - /etc/apt/sources.list.d/fde.list
 
 fd-pkgs:
-  pkg.latest:
+  pkg.{{data.installmode}}:
     - watch:
-      - pkg: fd-pre-pkgs
+      - file: fdpin
     - pkgs:
       {% for package in cfg.data.packages %}
       - {{package}}
       {% endfor %}
 
+{% set fd_ver = data.fd_ver %}
+
+{% set oprepkg = ''%}
+{% set prepkg = ''%}
+
+{% for i in data.fdpkgs %}
+{% set fn = '{0}_{1}.deb'.format(i, data['deb_ver']) %}
+{% set oprepkg = prepkg %}
+{% set prepkg = 'fd-{i}-pkg-fd'.format(i=i) %}
+{{prepkg}}:
+  file.managed:
+    - name: "{{cfg.project_root}}/dl{{fd_ver}}/{{fn}}"
+    - source: "https://github.com/makinacorpus/corpus-fusiondirectory/releases/download/{{fd_ver}}/{{fn}}"
+    - source_hash: "md5={{data.files[fn]}}"
+    - user: root
+    - makedirs: true
+    - group: root
+    - mode: 644
+    - watch:
+      - pkg: fd-pkgs
+      {% if oprepkg %}
+      - file: {{oprepkg}}
+      {% endif %}
+  cmd.run:
+    - name: dpkg -i "{{cfg.project_root}}/dl{{fd_ver}}/{{fn}}"
+    - use_vt: true
+    - unless: dpkg -l|egrep ^ii|awk '{print $2 "___" $3}'|egrep '^{{i}}___'|grep  $(echo "{{data.deb_ver}}"|sed -re "s/(_(all|amd64|i386))?$//g")
+    - watch_in:
+      - mc_proxy: fd-pkgs-release-hook
+    - watch:
+      - pkg: fd-pkgs
+      - file: {{prepkg}}
+      {% if oprepkg %}
+      - file: {{oprepkg}}
+      {% endif %}
+{% endfor %}
+
+fd-pkgs-release-hook:
+  mc_proxy.hook: []
+
 fd-activatemods:
   cmd.run:
     - watch:
-      - pkg: fd-pkgs
+      - mc_proxy: fd-pkgs-release-hook
     - name: for i in imap imagick readline json ldap recode curl;do php5enmod  -s cli $i;php5enmod  -s cli $i;done
 
 
@@ -81,3 +101,13 @@ make-short-cron-1:
     - contents: |
                 */10 * * * * * root su root -c "{{cfg.data_root}}/scron.sh"
 {% endif %}
+
+# fix fd#4192: mixed group support is not yet fixed
+{% set patch = '{0}/.salt/files/groups.patch'.format(cfg.project_root)%}
+apply-group-patch:
+  cmd.run:
+    - name: patch -Np1 < {{patch}}
+    - onlyif: patch -Np1 --dry-run  < {{patch}}
+    - cwd: /usr/share/fusiondirectory
+    - require:
+      - mc_proxy: fd-pkgs-release-hook

@@ -24,6 +24,8 @@
 # makina-states.services.dns.slapd.config_pw: "x"
 # makina-states.services.dns.slapd.mode: "master"
 
+{% set fd_ver = '1.0.9' %}
+makina-states.services.dns.slapd.fd_ver: "{{fd_ver}}"
 makina-projects.projectname:
   data:
     admin_allowed_ips: []
@@ -33,10 +35,12 @@ makina-projects.projectname:
     cfg_admin_pw: "x"
     debug_level: "8"
     force_ssl: "FALSE"
+    installmode: installed
+    #installmode: latest
     display_errors: "TRUE"
     logging: "TRUE"
     accountPrimaryAttribute: "uid"
-
+    fd_ver: "{{fd_ver}}"
     index: index.php
     domain: '{fqdn}'
     server_aliases: []
@@ -50,7 +54,7 @@ makina-projects.projectname:
       vh_top_source: "salt://makina-projects/{name}/files/top.conf"
       vhost_basenase: "corpus-fd-{name}"
       fpm_sock: "{fpm_sock}"
-      allowed_files: autocomplete.php|class_passwordRecovery.inc|getbin.php|geticon.php|index.php|logout.php|main.php|progress.php|recovery.php|setup.php"
+      allowed_files: "autocomplete.php|class_passwordRecovery.inc|getbin.php|geticon.php|index.php|logout.php|main.php|progress.php|recovery.php|setup.php"
     # http_users:
     #   - root: foo
     configs: {}
@@ -63,25 +67,50 @@ makina-projects.projectname:
     #    source: "salt://makina-projects/{name}/files/{{i}}"
     #    mode: "644"
     #}
-    packages:
+    #
+    fdpkgs:
       - fusiondirectory
-      - fusiondirectory-plugin-gpg
-      - fusiondirectory-plugin-gpg-schema
-      - php-net-imap
-      - fusiondirectory-plugin-mail
-      - fusiondirectory-plugin-mail-schema
-      - fusiondirectory-plugin-ssh
-      - fusiondirectory-plugin-ssh-schema
-      - fusiondirectory-plugin-sudo
-      - fusiondirectory-plugin-sudo-schema
-      - fusiondirectory-plugin-systems
-      - fusiondirectory-plugin-systems-schema
       - fusiondirectory-schema
+      - fusiondirectory-plugin-gpg-schema
+      - fusiondirectory-plugin-mail-schema
+      - fusiondirectory-plugin-ssh-schema
+      - fusiondirectory-plugin-sudo-schema
+      - fusiondirectory-plugin-systems-schema
+      - fusiondirectory-plugin-mail
+      - fusiondirectory-plugin-ssh
+      - fusiondirectory-plugin-sudo
+      - fusiondirectory-plugin-systems
+      - fusiondirectory-plugin-gpg
+      - fusiondirectory-plugin-mixedgroups
+    packages:
+      - apache2
+      - fusiondirectory-smarty3-acl-render
+      - gettext
+      - javascript-common
+      - libcrypt-cbc-perl
+      - libjs-prototype
+      - libjs-scriptaculous
+      - libnet-ldap-perl
+      - libpath-class-perl
+      - libterm-readkey-perl
+      - libxml-twig-perl
+      - php5
+      - php5-cli
+      - php5-curl
+      - php5-gd
+      - php5-imagick
+      - php5-imap
+      - php5-ldap
+      - php5-mcrypt
+      - php5-recode
+      - php-fpdf
       - php-mdb2
-      - php-mdb2-schema
       - php-mdb2-driver-mysql
       - php-mdb2-driver-pgsql
-      - fusiondirectory-smarty3-acl-render
+      - php-mdb2-schema
+      - php-net-imap
+      - schema2ldif
+      - smarty3
     fpm_sock: "{project_root}/var/run/fpm.sock"
     fpm_pool:
       pool_name: "{name}"
@@ -128,6 +157,14 @@ makina-projects.projectname:
           gc_ttl: 0
           shm_size: "64M"
     short_mail: true
+    #
+    deb_ver: "{{fd_ver}}-1_all"
+    fd_gh: "makinacorpus/corpus-fusiondirectory"
+    fd_mirror: "http://repos.fusiondirectory.org/debian-wheezy"
+    fd_mirror_path: "pool/main/f/fusiondirectory"
+    gh_user: "xxx"
+    gh_pw: "xxx"
+    #
     ldap_client:
       uri: "ldap://xxx"
       kw:
@@ -135,4 +172,19 @@ makina-projects.projectname:
         password: "{cfg_admin_pw}"
         tls: false
         base: "dc=xx,dc=xx"
+    #
+    files:
+      fusiondirectory_1.0.9-1_all.deb: 7b6a1323381e8d7d4b07933b064a7916
+      fusiondirectory-plugin-gpg_1.0.9-1_all.deb: eb9df4f091f241793328755b4fccd302
+      fusiondirectory-plugin-gpg-schema_1.0.9-1_all.deb: 43100ef8c3d5203c04e3a5e85b50f98d
+      fusiondirectory-plugin-mail_1.0.9-1_all.deb: a0a7a9a75ba010e27b5b133bb9eaabb0
+      fusiondirectory-plugin-mail-schema_1.0.9-1_all.deb: 0bf76ff08f4d04b8b15a67002a132bac
+      fusiondirectory-plugin-mixedgroups_1.0.9-1_all.deb: bb0b88f6cd7f69cec2b0c2355ba454e9
+      fusiondirectory-plugin-ssh_1.0.9-1_all.deb: 80e8fad17513ef452155759a8d774bbe
+      fusiondirectory-plugin-ssh-schema_1.0.9-1_all.deb: 6d9e0246af05e338746a5b2a63acc9f9
+      fusiondirectory-plugin-sudo_1.0.9-1_all.deb: 8c921f4fad705bef06a56afaad4c4972
+      fusiondirectory-plugin-sudo-schema_1.0.9-1_all.deb: 54abb0531b5e59716827de8f0790c530
+      fusiondirectory-plugin-systems_1.0.9-1_all.deb: a9c76381498734d3f2c06d3f578fbcac
+      fusiondirectory-plugin-systems-schema_1.0.9-1_all.deb: 7d7b538c6e50e07dc691221ae7866240
+      fusiondirectory-schema_1.0.9-1_all.deb: 34a7a4f0788e22a51d0155fdb87b5b96
 # vim:set ft=yaml:
