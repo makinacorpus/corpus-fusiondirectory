@@ -28,6 +28,7 @@ def main(project='fusiondirectory',
     root = J(cfg['project_root'], 'release')
     tok = HTTPBasicAuth(data['gh_user'], data['gh_pw'])
     fdv = data['fd_ver']
+    dfdv = data['deb_ver'][data['fd_ver']]
     if not os.path.exists(root):
         os.makedirs(root)
     if download:
@@ -36,7 +37,7 @@ def main(project='fusiondirectory',
                 data['fd_mirror'],
                 data['fd_mirror_path'],
                 i,
-                data['deb_ver'])
+                dfdv)
             cret = __salt__['cmd.run_all'](cmd, use_vt=True, cwd=root)
             if cret['retcode'] != 0:
                 pprint(cret)
@@ -62,7 +63,7 @@ def main(project='fusiondirectory',
         for i in data['fdpkgs']:
             assets = requests.get("{0}/releases/{1}/assets".format(
                 u, release['id']), auth=tok).json()
-            toup = "{0}_{1}.deb".format(i, data['deb_ver'])
+            toup = "{0}_{1}_all.deb".format(i, dfdv)
             if toup not in [a['name'] for a in assets]:
                 fpath = J(root, toup)
                 size = os.stat(fpath).st_size

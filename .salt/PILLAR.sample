@@ -158,7 +158,8 @@ makina-projects.projectname:
           shm_size: "64M"
     short_mail: true
     #
-    deb_ver: "{{fd_ver}}-1_all"
+    deb_ver:
+      "1.0.9": "1.0.9-1"
     fd_gh: "makinacorpus/corpus-fusiondirectory"
     fd_mirror: "http://repos.fusiondirectory.org/debian-wheezy"
     fd_mirror_path: "pool/main/f/fusiondirectory"
