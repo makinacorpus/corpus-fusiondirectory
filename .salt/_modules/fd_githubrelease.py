@@ -8,7 +8,7 @@ import json
 import copy
 import logging
 import re
-import pprint
+from pprint import pprint
 import os
 import requests
 from requests.auth import HTTPBasicAuth
@@ -33,7 +33,7 @@ def main(project='fusiondirectory',
         os.makedirs(root)
     if download:
         for i in data['fdpkgs']:
-            cmd = "wget -c '{0}/{1}/{2}_{3}.deb'".format(
+            cmd = "wget -c '{0}/{1}/{2}_{3}_all.deb'".format(
                 data['fd_mirror'],
                 data['fd_mirror_path'],
                 i,

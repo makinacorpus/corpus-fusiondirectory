@@ -71,17 +71,20 @@ makina-projects.projectname:
     fdpkgs:
       - fusiondirectory
       - fusiondirectory-schema
+      - fusiondirectory-plugin-argonaut-schema
+      - fusiondirectory-plugin-systems
+      - fusiondirectory-plugin-mail
+      - fusiondirectory-plugin-argonaut
       - fusiondirectory-plugin-gpg-schema
+      - fusiondirectory-plugin-systems-schema
       - fusiondirectory-plugin-mail-schema
       - fusiondirectory-plugin-ssh-schema
       - fusiondirectory-plugin-sudo-schema
-      - fusiondirectory-plugin-systems-schema
-      - fusiondirectory-plugin-mail
       - fusiondirectory-plugin-ssh
       - fusiondirectory-plugin-sudo
-      - fusiondirectory-plugin-systems
       - fusiondirectory-plugin-gpg
       - fusiondirectory-plugin-mixedgroups
+      - fusiondirectory-smarty3-acl-render
     packages:
       - apache2
       - fusiondirectory-smarty3-acl-render
@@ -188,4 +191,8 @@ makina-projects.projectname:
       fusiondirectory-plugin-systems_1.0.9-1_all.deb: a9c76381498734d3f2c06d3f578fbcac
       fusiondirectory-plugin-systems-schema_1.0.9-1_all.deb: 7d7b538c6e50e07dc691221ae7866240
       fusiondirectory-schema_1.0.9-1_all.deb: 34a7a4f0788e22a51d0155fdb87b5b96
+      fusiondirectory-plugin-argonaut_1.0.9-1_all.deb: 3af19f676a6f417af4043f738d75cf90
+      fusiondirectory-plugin-argonaut-schema_1.0.9-1_all.deb: 43922053aa6459e7721974bf058fdc1f
+      fusiondirectory-smarty3-acl-render_1.0.9-1_all.deb: b7dc9e4af704d6810c8e36dcb3b7c4ae
+
 # vim:set ft=yaml:
