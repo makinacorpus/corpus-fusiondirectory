@@ -187,6 +187,7 @@ makina-projects.projectname:
         - 'grouptabs.patch'
         - 'grouptabs2.patch'
         - 'groupusername.patch'
+        - 'usergroupname.patch'
     files:
       fusiondirectory_1.0.9-1_all.deb: 7b6a1323381e8d7d4b07933b064a7916
       fusiondirectory-plugin-gpg_1.0.9-1_all.deb: eb9df4f091f241793328755b4fccd302
