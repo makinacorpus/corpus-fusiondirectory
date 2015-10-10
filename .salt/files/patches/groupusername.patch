@@ -1,0 +1,16 @@
+diff -Nur fusiondirectory.pre2/plugins/admin/groups/class_ogroup.inc fusiondirectory/plugins/admin/groups/class_ogroup.inc
+--- fusiondirectory.pre2/plugins/admin/groups/class_ogroup.inc	2015-10-09 14:20:23.977511242 +0200
++++ fusiondirectory/plugins/admin/groups/class_ogroup.inc	2015-10-10 14:26:05.424159671 +0200
+@@ -42,7 +42,11 @@
+             $infos = objects::infos($objectType);
+             $this->types[$i]    = $code;
+             $this->displays[$i] = $attrs[$infos['mainAttr']][0];
+-            if (isset($attrs['description'][0])) {
++            if (in_array('gosaAccount', $attrs['objectClass']) &&
++               isset($attrs['sn']) &&
++               isset($attrs['givenName'])){
++                $this->displays[$i] = $attrs['sn'][0].", ".$attrs['givenName'][0].' ['.$this->displays[$i].']';
++            } elseif (isset($attrs['description'][0])) {
+               $this->displays[$i] .= ' ['.$attrs['description'][0].']';
+             } elseif (isset($attrs['uid'][0])) {
+               $this->displays[$i] .= ' ['.$attrs['uid'][0].']';
