@@ -1,0 +1,12 @@
+diff -Nur fusiondirectory.orig/plugins/admin/groups/class_ogroup.inc fusiondirectory/plugins/admin/groups/class_ogroup.inc
+--- fusiondirectory.orig/plugins/admin/groups/class_ogroup.inc	2015-10-08 19:51:15.711573960 +0200
++++ fusiondirectory/plugins/admin/groups/class_ogroup.inc	2015-10-08 19:31:59.491541531 +0200
+@@ -253,7 +253,7 @@
+     foreach ($res as $data) {
+       $ws_dns[] = $data['dn'];
+     }
+-    $res = get_list("(&(member=*)(objectClass=gosaGroupOfNames)(|(gosaGroupObjects=[W])(gosaGroupObjects=[T])))", "none",
++    $res = get_list("(&(member=*)(|(objectClass=groupOfNames)(objectClass=gosaGroupOfNames))(|(gosaGroupObjects=[W])(gosaGroupObjects=[T])))", "none",
+                     $base, array("dn","member"), GL_NO_ACL_CHECK | GL_SUBSEARCH);
+     $this->used_workstations = array();
+     foreach ($res as $og) {

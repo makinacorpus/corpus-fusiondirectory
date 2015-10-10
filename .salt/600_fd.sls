@@ -60,12 +60,15 @@ fd-pkgs:
 fd-pkgs-release-hook:
   mc_proxy.hook: []
 
+{% set exts='imap imagick readline json ldap recode curl'%}
 fd-activatemods:
   cmd.run:
     - watch:
       - mc_proxy: fd-pkgs-release-hook
-    - name: for i in imap imagick readline json ldap recode curl;do php5enmod  -s cli $i;php5enmod  -s cli $i;done
-
+    - name: for i in {{exts}};do php5enmod  -s $i $i;php5enmod  -s cli $i;done
+    - onlyif: |
+              for i in {{exts}};do if [ ! -e "/etc/php5/fpm/conf.d/"*"${i}"* ];then exit 0;fi;done
+              exit 1
 
 {{ h.deliver_config_files(
      cfg.data.get('configs', {}),
@@ -105,11 +108,26 @@ make-short-cron-1:
 {% endif %}
 
 # fix fd#4192: mixed group support is not yet fixed
-{% set patch = '{0}/.salt/files/groups.patch'.format(cfg.project_root)%}
-apply-group-patch:
+{% set opatch = '' %}
+{% for patch in [
+'ogroup_1.patch',
+'ogroup_2.patch',
+'oattrs.patch',
+'classattrs.patch',
+'grouptabs.patch',
+'grouptabs2.patch',
+]%}
+{% set patch = '{0}/.salt/files/patches/{1}'.format(cfg.project_root, patch)%}
+{% set patchid = 'apply-group-patch-' + patch %}
+{{patchid}}:
   cmd.run:
-    - name: patch -Np1 < {{patch}}
-    - onlyif: patch -Np1 --dry-run  < {{patch}}
+    - name: patch -Np1 < "{{patch}}"
+    - onlyif: patch -Np1 --dry-run  < "{{patch}}"
     - cwd: /usr/share/fusiondirectory
     - require:
       - mc_proxy: fd-pkgs-release-hook
+      {% if opatch %}
+      - cmd: {{opatch}}
+      {% endif%}
+{% set opatch = patchid %}
+{% endfor %}

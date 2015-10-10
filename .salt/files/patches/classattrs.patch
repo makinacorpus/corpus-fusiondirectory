@@ -1,0 +1,18 @@
+diff -Nur fusiondirectory.orig/include/simpleplugin/class_attribute.inc fusiondirectory/include/simpleplugin/class_attribute.inc
+--- fusiondirectory.orig/include/simpleplugin/class_attribute.inc	2015-10-08 19:51:04.631766190 +0200
++++ fusiondirectory/include/simpleplugin/class_attribute.inc	2015-10-08 19:42:45.652394038 +0200
+@@ -451,8 +451,12 @@
+           if (!is_numeric($key)) {
+             $ot = $key;
+           }
+-          $oinfos = objects::infos($ot);
+-          return $oinfos['filter'];
++          try {
++            $oinfos = objects::infos($ot);
++            return $oinfos['filter'];
++          } catch (NonExistingObjectTypeException $e) {
++            return '';
++          }
+         },
+         array_keys($infos['plObjectType']),
+         array_values($infos['plObjectType'])

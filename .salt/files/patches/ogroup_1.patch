@@ -1,0 +1,12 @@
+diff -Nur fusiondirectory.orig/plugins/admin/groups/class_ogroup.inc fusiondirectory/plugins/admin/groups/class_ogroup.inc
+--- fusiondirectory.orig/plugins/admin/groups/class_ogroup.inc	2015-10-08 19:51:15.711573960 +0200
++++ fusiondirectory/plugins/admin/groups/class_ogroup.inc	2015-10-08 19:31:59.491541531 +0200
+@@ -154,7 +154,7 @@
+         'name'        => _('Group'),
+         'description' => _('Group'),
+         'ou'          => get_ou('ogroupRDN'),
+-        'filter'      => 'objectClass=gosaGroupOfNames',
++        'filter'      => 'objectClass=groupOfNames',
+         'icon'        => 'geticon.php?context=types&icon=resource-group&size=16',
+         'tabClass'    => 'ogrouptabs',
+       )),

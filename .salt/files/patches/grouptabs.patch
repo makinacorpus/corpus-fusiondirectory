@@ -1,0 +1,13 @@
+diff -Nur fusiondirectory.orig/include/class_config.inc fusiondirectory/include/class_config.inc
+--- fusiondirectory.orig/include/class_config.inc	2015-10-08 19:51:11.359649464 +0200
++++ fusiondirectory/include/class_config.inc	2015-10-08 19:44:00.651101240 +0200
+@@ -1076,6 +1076,9 @@
+           if (is_numeric($key)) { // This is not the main tab
+             $tabclass = strtoupper($value)."TABS";
+             @DEBUG (DEBUG_TRACE, __LINE__, __FUNCTION__, __FILE__, $tabclass, "Adding $class to tab list");
++            if (($tabclass == 'GROUPTABS') && class_available('mixedGroup')) {
++              $tabclass = 'OGROUP-USERTABS';
++            }
+             if (!isset($this->data['TABS'][$tabclass])) {
+               $this->data['TABS'][$tabclass] = array();
+             }

@@ -1,0 +1,12 @@
+diff -Nur fusiondirectory.orig/plugins/admin/groups/class_groupManagement.inc fusiondirectory/plugins/admin/groups/class_groupManagement.inc
+--- fusiondirectory.orig/plugins/admin/groups/class_groupManagement.inc	2015-10-08 19:50:51.299997482 +0200
++++ fusiondirectory/plugins/admin/groups/class_groupManagement.inc	2015-10-08 20:00:46.393666217 +0200
+@@ -75,7 +75,7 @@
+                        "alt='"._('Posix')."' title='"._('Edit posix properties')."' ".
+                        "name='listing_edit_tab_group_$row' style='padding:1px'/>";
+     if ($attrs = $ldap->fetch()) {
+-      if (!objects::isOfType($attrs, 'group')) {
++      if (!objects::isOfType($attrs, 'role')) {
+         return '<input class="center" type="image" src="geticon.php?context=types&amp;icon=role&amp;size=16" '.
+                  'alt="'._('Role').'" title="'._('Edit role properties').'" '.
+                  'name="listing_edit_'.$row.'" style="padding:1px"/>';

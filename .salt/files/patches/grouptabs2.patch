@@ -1,0 +1,16 @@
+diff -Nur fusiondirectory.pre2/plugins/admin/groups/class_groupManagement.inc fusiondirectory/plugins/admin/groups/class_groupManagement.inc
+--- fusiondirectory.pre2/plugins/admin/groups/class_groupManagement.inc	2015-10-10 10:17:16.881412028 +0200
++++ fusiondirectory/plugins/admin/groups/class_groupManagement.inc	2015-10-10 12:22:25.768815324 +0200
+@@ -56,7 +56,11 @@
+     global $config;
+     static $grouptabs = array();
+     if (empty($grouptabs)) {
+-      foreach ($config->data['TABS']['GROUPTABS'] as $plug) {
++      $class = "GROUPTABS";
++      if (class_available('mixedGroup')) {
++          $class = 'OGROUPTABS';
++      }
++      foreach ($config->data['TABS'][$class] as $plug) {
+         if ($plug['CLASS'] == 'group') {
+           continue;
+         }
