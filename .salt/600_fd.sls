@@ -107,16 +107,9 @@ make-short-cron-1:
                 */10 * * * * * root su root -c "{{cfg.data_root}}/scron.sh"
 {% endif %}
 
-# fix fd#4192: mixed group support is not yet fixed
+{% set patches = data['patches'].get(fd_ver, []) + data['extra_patches'] %}
 {% set opatch = '' %}
-{% for patch in [
-'ogroup_1.patch',
-'ogroup_2.patch',
-'oattrs.patch',
-'classattrs.patch',
-'grouptabs.patch',
-'grouptabs2.patch',
-]%}
+{% for patch in patches %}
 {% set patch = '{0}/.salt/files/patches/{1}'.format(cfg.project_root, patch)%}
 {% set patchid = 'apply-group-patch-' + patch %}
 {{patchid}}:
