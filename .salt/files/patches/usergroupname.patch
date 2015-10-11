@@ -1,9 +1,17 @@
-Les fichiers binaires fusiondirectory.pre2/include/.class_plugin.inc.swp et fusiondirectory/include/.class_plugin.inc.swp sont différents
-Les fichiers binaires fusiondirectory.pre2/include/simpleplugin/.class_simplePlugin.inc.swp et fusiondirectory/include/simpleplugin/.class_simplePlugin.inc.swp sont différents
-diff -Nur fusiondirectory.pre2/plugins/personal/roles/class_userRoles.inc fusiondirectory/plugins/personal/roles/class_userRoles.inc
---- fusiondirectory.pre2/plugins/personal/roles/class_userRoles.inc	2015-09-23 21:17:50.000000000 +0200
-+++ fusiondirectory/plugins/personal/roles/class_userRoles.inc	2015-10-10 15:28:55.912173038 +0200
-@@ -74,7 +74,17 @@
+From 0fd5fd79c77f37c1515e4c01b26d48b120ede2af Mon Sep 17 00:00:00 2001
+From: Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>
+Date: Sun, 11 Oct 2015 15:58:54 +0200
+Subject: [PATCH 2438/2439] Fix user groups display
+
+---
+ plugins/personal/roles/class_userRoles.inc | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/plugins/personal/roles/class_userRoles.inc b/plugins/personal/roles/class_userRoles.inc
+index ba98f9e..5633a65 100644
+--- a/plugins/personal/roles/class_userRoles.inc
++++ b/plugins/personal/roles/class_userRoles.inc
+@@ -74,7 +74,17 @@ class userRoles extends simplePlugin
      $this->ignore_account = FALSE;
  
      /* Groups handling */
@@ -22,4 +30,6 @@ diff -Nur fusiondirectory.pre2/plugins/personal/roles/class_userRoles.inc fusion
      $this->attributesAccess['groupsMembership']->setInLdap(FALSE);
      $this->attributesAccess['groupsMembership']->attribute->setChoices(array_keys($groups), array_values($groups));
      if ($this->is_template) {
-Les fichiers binaires fusiondirectory.pre2/plugins/personal/roles/.class_userRoles.inc.swp et fusiondirectory/plugins/personal/roles/.class_userRoles.inc.swp sont différents
+-- 
+1.9.1
+
