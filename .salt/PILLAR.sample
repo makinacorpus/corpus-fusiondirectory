@@ -71,6 +71,8 @@ makina-projects.projectname:
     fdpkgs:
       - fusiondirectory
       - fusiondirectory-schema
+      - fusiondirectory-plugin-personal-schema
+      - fusiondirectory-plugin-personal
       - fusiondirectory-plugin-argonaut-schema
       - fusiondirectory-plugin-systems
       - fusiondirectory-plugin-mail
@@ -85,6 +87,9 @@ makina-projects.projectname:
       - fusiondirectory-plugin-gpg
       - fusiondirectory-plugin-mixedgroups
       - fusiondirectory-smarty3-acl-render
+      #- fusiondirectory-plugin-ppolicy-schema
+      #- fusiondirectory-plugin-ppolicy
+      #- fusiondirectory-theme-oxygen
     packages:
       - apache2
       - fusiondirectory-smarty3-acl-render
@@ -205,5 +210,9 @@ makina-projects.projectname:
       fusiondirectory-plugin-argonaut_1.0.9-1_all.deb: 3af19f676a6f417af4043f738d75cf90
       fusiondirectory-plugin-argonaut-schema_1.0.9-1_all.deb: 43922053aa6459e7721974bf058fdc1f
       fusiondirectory-smarty3-acl-render_1.0.9-1_all.deb: b7dc9e4af704d6810c8e36dcb3b7c4ae
-
+      fusiondirectory-plugin-personal_1.0.9-1_all.deb: 4ab029aa25cb9ea3835fb6cebf588f35
+      fusiondirectory-plugin-personal-schema_1.0.9-1_all.deb: e5774dd658915f9341f7b4d52efc8417
+      fusiondirectory-plugin-ppolicy_1.0.9-1_all.deb: 3b5a637e09cae0c439eac63ee07767f5
+      #fusiondirectory-plugin-ppolicy-schema_1.0.9-1_all.deb: e74c9c7c73fc63a29a889df9295538ef
+      #fusiondirectory-theme-oxygen_1.0.9-1_all.deb: c4d280f58b9637c777bc6a56d0cb100f
 # vim:set ft=yaml:

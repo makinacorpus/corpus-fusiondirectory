@@ -13,6 +13,7 @@ FD_SCHEMAS="
 samba.schema
 core-fd.schema
 core-fd-conf.schema
+template-fd.schema
 sudo-fd-conf.schema
 sudo.schema
 service-fd.schema
@@ -27,7 +28,10 @@ openssh-lpk.schema
 pgp-keyserver.schema
 pgp-recon.schema
 pgp-remte-prefs.schema
+personal-fd.schema
+personal-fd-conf.schema
 "
+#ppolicy-fd-conf.schema
 
 cd /etc/ldap/schema/fusiondirectory
 dest=$(mktemp)
