@@ -13,6 +13,8 @@ FD_SCHEMAS="
 samba.schema
 core-fd.schema
 core-fd-conf.schema
+personal-fd-conf.schema
+personal-fd.schema 
 template-fd.schema
 sudo-fd-conf.schema
 sudo.schema
@@ -28,8 +30,6 @@ openssh-lpk.schema
 pgp-keyserver.schema
 pgp-recon.schema
 pgp-remte-prefs.schema
-personal-fd.schema
-personal-fd-conf.schema
 "
 #ppolicy-fd-conf.schema
 
