@@ -1,0 +1,23 @@
+diff -Nur fusiondirectory.1.9.0.1-2/plugins/admin/groups/class_group.inc fusiondirectory/plugins/admin/groups/class_group.inc
+--- fusiondirectory.1.9.0.1-2/plugins/admin/groups/class_group.inc      2015-10-22 21:33:45.057939243 +0200
++++ fusiondirectory/plugins/admin/groups/class_group.inc        2015-10-22 21:59:02.622552059 +0200
+@@ -60,7 +60,7 @@
+           new StringAttribute(
+             _('Name'), _('Name of this group'),
+             'cn', TRUE,
+-            '', '', (strict_uid_mode() ? '/^[a-z0-9_-]+$/' : '/^[a-z0-9_.-]+$/')
++            '', '', (strict_uid_mode() ? '/^[a-z0-9_-]+$/' : '/^( |[a-zA-Z0-9_.-])+$/')
+           ),
+           new TextAreaAttribute(
+             _('Description'), _('Short description of this group'),
+diff -Nur fusiondirectory.1.9.0.1-2/plugins/admin/groups/class_ogroup.inc fusiondirectory/plugins/admin/groups/class_ogroup.inc
+--- fusiondirectory.1.9.0.1-2/plugins/admin/groups/class_ogroup.inc     2015-10-22 21:33:45.057939243 +0200
++++ fusiondirectory/plugins/admin/groups/class_ogroup.inc       2015-10-22 21:58:42.362921170 +0200
+@@ -190,7 +190,7 @@
+           new StringAttribute(
+             _('Name'), _('Name of this group'),
+             'cn', TRUE,
+-            '', '', (strict_uid_mode() ? '/^[a-z0-9_-]+$/' : '/^[a-z0-9_.-]+$/')
++            '', '', (strict_uid_mode() ? '/^[a-z0-9_-]+$/' : '/^( |[a-zA-Z0-9_.-])+$/')
+           ),
+           new TextAreaAttribute(

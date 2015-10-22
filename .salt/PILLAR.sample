@@ -197,6 +197,7 @@ makina-projects.projectname:
       1.0.9.1:
         - 'ogroup_2.patch'
         - 'oupusername.patch.1.9.0.1'
+        - 'groupnames.patch'
         # fixed more or less the same in the release
         #- 'usergroupname.patch' # this one inversed the label, buts its ok in the interface
         # those are merged back
