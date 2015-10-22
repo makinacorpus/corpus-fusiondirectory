@@ -16,7 +16,7 @@ index edc3f83..01e7a07 100644
              $this->types[$i]    = $code;
              $this->displays[$i] = $attrs[$infos['mainAttr']][0];
 -            if (isset($attrs['description'][0])) {
-+            if (in_array('gosaAccount', $attrs['objectClass']) &&
++            if (in_array('person', $attrs['objectClass']) &&
 +               isset($attrs['sn']) &&
 +               isset($attrs['givenName'])){
 +                $this->displays[$i] = $attrs['sn'][0].", ".$attrs['givenName'][0].' ['.$this->displays[$i].']';
