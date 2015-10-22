@@ -32,7 +32,7 @@ fd-pkgs:
 
 {# circular dep#}
 {% set dpkg_arg='' %}
-{% if i.endswith('argonaut') %}
+{% if 'argonaut' in i %}
 {% set dpkg_arg = '--force-all' %}
 {% endif %}
 {{prepkg}}:
