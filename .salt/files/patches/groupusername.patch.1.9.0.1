@@ -1,0 +1,16 @@
+diff -Nur fusiondirectory.1.9.0.1-1/plugins/admin/groups/class_ogroup.inc fusiondirectory/plugins/admin/groups/class_ogroup.inc
+--- fusiondirectory.1.9.0.1-1/plugins/admin/groups/class_ogroup.inc	2015-10-22 21:29:38.610350194 +0200
++++ fusiondirectory/plugins/admin/groups/class_ogroup.inc	2015-10-22 21:35:31.992025477 +0200
+@@ -42,7 +42,11 @@
+             $infos = objects::infos($objectType);
+             $this->types[$i]    = $code;
+             $this->displays[$i] = $attrs[$infos['nameAttr']][0];
+-            if (isset($attrs['description'][0])) {
++            if (in_array('person', $attrs['objectClass']) &&
++               isset($attrs['sn']) &&
++               isset($attrs['givenName'])){
++              $this->displays[$i] = $attrs['sn'][0].", ".$attrs['givenName'][0].' ['.$attrs[$infos['mainAttr']][0].']';
++            } elseif (isset($attrs['description'][0])) {
+               $this->displays[$i] .= ' ['.$attrs['description'][0].']';
+             } elseif (isset($attrs['uid'][0])) {
+               $this->displays[$i] .= ' ['.$attrs['uid'][0].']';

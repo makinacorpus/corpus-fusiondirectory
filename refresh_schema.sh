@@ -2,13 +2,16 @@
 OVERIDDEN_SCHEMAS="
 core.schema
 nis.schema
+recovery-fd.schema
 "
 CORE_SCHEMAS="
 core.schema
 cosine.schema
 inetorgperson.schema
 misc.schema
-nis.schema"
+nis.schema
+recovery-fd.schema
+"
 FD_SCHEMAS="
 samba.schema
 core-fd.schema
@@ -21,7 +24,6 @@ sudo.schema
 service-fd.schema
 systems-fd-conf.schema
 systems-fd.schema
-recovery-fd.schema
 mail-fd.schema
 mail-fd-conf.schema
 gpg-fd.schema
@@ -38,11 +40,9 @@ dest=$(mktemp)
 rm ${dest}
 mkdir ${dest}
 cd $dest
-VER="${FD_VER:-1.9.0}"
-PVER="${FD_PREVER:-1.8.0.9}"
+VER="${FD_VER:-1.0.9.1}"
 MS="${MS:-/srv/salt/makina-states}"
 sdest="$MS/files/etc/ldap/slapd.d/cn=config/cn=schema/$VER"
-spdest="$MS/files/etc/ldap/slapd.d/cn=config/cn=schema/$PVER"
 for i in $OVERIDDEN_SCHEMAS;do
     cp -fv $MS/files/etc/ldap/schema/$i /etc/ldap/schema/$i
 done

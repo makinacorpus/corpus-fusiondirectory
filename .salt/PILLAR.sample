@@ -24,7 +24,7 @@
 # makina-states.services.dns.slapd.config_pw: "x"
 # makina-states.services.dns.slapd.mode: "master"
 
-{% set fd_ver = '1.0.9' %}
+{% set fd_ver = '1.0.9.1' %}
 makina-states.services.dns.slapd.fd_ver: "{{fd_ver}}"
 makina-projects.projectname:
   data:
@@ -74,9 +74,9 @@ makina-projects.projectname:
       - fusiondirectory-plugin-personal-schema
       - fusiondirectory-plugin-personal
       - fusiondirectory-plugin-argonaut-schema
+      - fusiondirectory-plugin-argonaut
       - fusiondirectory-plugin-systems
       - fusiondirectory-plugin-mail
-      - fusiondirectory-plugin-argonaut
       - fusiondirectory-plugin-gpg-schema
       - fusiondirectory-plugin-systems-schema
       - fusiondirectory-plugin-mail-schema
@@ -168,6 +168,7 @@ makina-projects.projectname:
     #
     deb_ver:
       "1.0.9": "1.0.9-1"
+      "1.0.9.1": "1.0.9.1-1"
     fd_gh: "makinacorpus/corpus-fusiondirectory"
     fd_mirror: "http://repos.fusiondirectory.org/debian-wheezy"
     fd_mirror_path: "pool/main/f/fusiondirectory"
@@ -193,6 +194,17 @@ makina-projects.projectname:
         - 'grouptabs2.patch'
         - 'groupusername.patch'
         - 'usergroupname.patch'
+      1.0.9.1:
+        - 'ogroup_2.patch'
+        - 'oupusername.patch.1.9.0.1'
+        # fixed more or less the same in the release
+        #- 'usergroupname.patch' # this one inversed the label, buts its ok in the interface
+        # those are merged back
+        #- 'ogroup_1.patch'
+        #- 'oattrs.patch'
+        #- 'classattrs.patch'
+        #- 'grouptabs.patch'
+        #- 'grouptabs2.patch'
     files:
       fusiondirectory_1.0.9-1_all.deb: 7b6a1323381e8d7d4b07933b064a7916
       fusiondirectory-plugin-gpg_1.0.9-1_all.deb: eb9df4f091f241793328755b4fccd302
@@ -213,6 +225,24 @@ makina-projects.projectname:
       fusiondirectory-plugin-personal_1.0.9-1_all.deb: 4ab029aa25cb9ea3835fb6cebf588f35
       fusiondirectory-plugin-personal-schema_1.0.9-1_all.deb: e5774dd658915f9341f7b4d52efc8417
       fusiondirectory-plugin-ppolicy_1.0.9-1_all.deb: 3b5a637e09cae0c439eac63ee07767f5
+      fusiondirectory_1.0.9.1-1_all.deb: df09f3b8651aee05383adbb67261459b
+      fusiondirectory-plugin-argonaut_1.0.9.1-1_all.deb: 6451497579a77bcde9fd4fa813edb08b
+      fusiondirectory-plugin-argonaut-schema_1.0.9.1-1_all.deb: 38f88bd777f81dbabce0d802d5d5cdc8
+      fusiondirectory-plugin-gpg_1.0.9.1-1_all.deb: def23860aae8d509e07b17f0395e37b9
+      fusiondirectory-plugin-gpg-schema_1.0.9.1-1_all.deb: 174c13b2211cfbcf62d0ae228af04f0a
+      fusiondirectory-plugin-mail_1.0.9.1-1_all.deb: b54073f3e3615e4a8794ab4c01c3e315
+      fusiondirectory-plugin-mail-schema_1.0.9.1-1_all.deb: c6818ff78bf97674e15d51d2fc916488
+      fusiondirectory-plugin-mixedgroups_1.0.9.1-1_all.deb: 4ddafcf47efde7d3e60de33abccb7727
+      fusiondirectory-plugin-personal_1.0.9.1-1_all.deb: 3935d0a067d133fff4260b2b3ead7bf5
+      fusiondirectory-plugin-personal-schema_1.0.9.1-1_all.deb: d01f38b13b1308c0ba689ee6dee709cc
+      fusiondirectory-plugin-ssh_1.0.9.1-1_all.deb: 40a8f92734b78a7d5354756e9dd40676
+      fusiondirectory-plugin-ssh-schema_1.0.9.1-1_all.deb: 6aa8a7d08d443dae1e0b8f1a2a37bc79
+      fusiondirectory-plugin-sudo_1.0.9.1-1_all.deb: 984e8bc10bdd1969845c698f9f7030cc
+      fusiondirectory-plugin-sudo-schema_1.0.9.1-1_all.deb: c639ba06ade9cc309c894e75d7ab99fc
+      fusiondirectory-plugin-systems_1.0.9.1-1_all.deb: a4a8904059ce111c730c503caac04fc1
+      fusiondirectory-plugin-systems-schema_1.0.9.1-1_all.deb: 4483380d104f5030804b93c1e79126dd
+      fusiondirectory-schema_1.0.9.1-1_all.deb: c1f10f1f31627b07324e0788e2dd9a86
+      fusiondirectory-smarty3-acl-render_1.0.9.1-1_all.deb: 95fed078594bf60cf7fd9369a3676078
       #fusiondirectory-plugin-ppolicy-schema_1.0.9-1_all.deb: e74c9c7c73fc63a29a889df9295538ef
       #fusiondirectory-theme-oxygen_1.0.9-1_all.deb: c4d280f58b9637c777bc6a56d0cb100f
 # vim:set ft=yaml:

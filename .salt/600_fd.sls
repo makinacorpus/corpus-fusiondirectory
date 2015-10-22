@@ -29,6 +29,12 @@ fd-pkgs:
 {% set fn = '{0}_{1}_all.deb'.format(i, dv) %}
 {% set oprepkg = prepkg %}
 {% set prepkg = 'fd-{i}-pkg-fd'.format(i=i) %}
+
+{# circular dep#}
+{% set dpkg_arg='' %}
+{% if i.endswith('argonaut') %}
+{% set dpkg_arg = '--force-all' %}
+{% endif %}
 {{prepkg}}:
   file.managed:
     - name: "{{cfg.project_root}}/dl{{fd_ver}}/{{fn}}"
@@ -44,7 +50,7 @@ fd-pkgs:
       - file: {{oprepkg}}
       {% endif %}
   cmd.run:
-    - name: dpkg -i "{{cfg.project_root}}/dl{{fd_ver}}/{{fn}}"
+    - name: dpkg -i {{dpkg_arg}} "{{cfg.project_root}}/dl{{fd_ver}}/{{fn}}"
     - use_vt: true
     - unless: dpkg -l|egrep ^ii|awk '{print $2 "___" $3}'|egrep '^{{i}}___'|grep  $(echo "{{dv}}"|sed -re "s/(_(all|amd64|i386))?$//g")
     - watch_in:
