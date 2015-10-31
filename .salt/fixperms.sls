@@ -90,6 +90,10 @@
                --users {{cfg.user}}:rwx \
                --groups {{cfg.group}}:rwx \
                --groups {{salt['mc_apache.settings']().httpd_user}}:r-x;
+            if [ ! -d "{{cfg.data_root}}/noacls" ];then
+              mkdir -p "{{cfg.data_root}}/noacls"
+            fi
+            setfacl -b -k -R "{{cfg.data_root}}/noacls"
             {{locs.resetperms}} -q --no-recursive\
                --fmode 444 --dmode 661 \
                -u {{cfg.user}} -g {{cfg.group}}\

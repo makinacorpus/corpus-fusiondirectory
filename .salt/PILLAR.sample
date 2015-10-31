@@ -183,29 +183,15 @@ makina-projects.projectname:
         tls: false
         base: "dc=xx,dc=xx"
     #
-    extra_patches: []
+    extra_patches:
+      1.0.9: []
+      1.0.9.1: []
     patches:
-      1.0.9:
-        - 'ogroup_1.patch'
-        - 'ogroup_2.patch'
-        - 'oattrs.patch'
-        - 'classattrs.patch'
-        - 'grouptabs.patch'
-        - 'grouptabs2.patch'
-        - 'groupusername.patch'
-        - 'usergroupname.patch'
-      1.0.9.1:
-        - 'ogroup_2.patch'
-        - 'oupusername.patch.1.9.0.1'
-        - 'groupnames.patch'
-        # fixed more or less the same in the release
-        #- 'usergroupname.patch' # this one inversed the label, buts its ok in the interface
-        # those are merged back
-        #- 'ogroup_1.patch'
-        #- 'oattrs.patch'
-        #- 'classattrs.patch'
-        #- 'grouptabs.patch'
-        #- 'grouptabs2.patch'
+      1.0.9: []
+      1.0.9.1: []
+    fd_overrides:
+      git: https://github.com/makinacorpus/fusiondirectory_packaging.git
+      rev: "{fd_ver}"
     files:
       fusiondirectory_1.0.9-1_all.deb: 7b6a1323381e8d7d4b07933b064a7916
       fusiondirectory-plugin-gpg_1.0.9-1_all.deb: eb9df4f091f241793328755b4fccd302

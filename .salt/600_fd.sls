@@ -113,7 +113,8 @@ make-short-cron-1:
                 */10 * * * * * root su root -c "{{cfg.data_root}}/scron.sh"
 {% endif %}
 
-{% set patches = data['patches'].get(fd_ver, []) + data['extra_patches'] %}
+{# NOMOREUSED: we have too much patches, easier to track with git #}
+{% set patches = data['patches'].get(fd_ver, []) + data['extra_patches'].get('fd_ver', []) %}
 {% set opatch = '' %}
 {% for patch in patches %}
 {% set patch = '{0}/.salt/files/patches/{1}'.format(cfg.project_root, patch)%}
@@ -130,3 +131,29 @@ make-short-cron-1:
       {% endif%}
 {% set opatch = patchid %}
 {% endfor %}
+
+git-checkout:
+  file.directory:
+    - name: "{{cfg.data_root}}/noacls"
+    - user: root
+    - group: root
+    - mode: 750
+    - require:
+      - mc_proxy: fd-pkgs-release-hook
+  cmd.run:
+    - name: setfacl -b -k "{{cfg.data_root}}/noacls"
+    - require:
+      - file: git-checkout
+  git.latest:
+    - name: "{{data.fd_overrides.git}}"
+    - target: "{{cfg.data_root}}/noacls/fusiondirectory"
+    - rev: "{{data.fd_overrides.rev}}"
+    - require:
+      - cmd: git-checkout
+
+git_deploy:
+  cmd.run:
+    - name: rsync -aAzv --delete "{{cfg.data_root}}/noacls/fusiondirectory/" "/usr/share/fusiondirectory/"
+    - require:
+      - git: git-checkout
+
