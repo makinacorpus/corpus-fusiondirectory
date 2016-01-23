@@ -1,6 +1,7 @@
 {% set cfg = opts['ms_project'] %}
 {% import "makina-states/services/http/apache/init.sls" as apache with context %}
 {% import "makina-states/services/php/init.sls" as php with context %}
+{% do cfg.data.apache_vhost.update({'server_aliases': cfg.data.server_aliases}) %}
 include:
   - makina-states.services.php.phpfpm_with_apache
 {% set data = cfg.data %}
