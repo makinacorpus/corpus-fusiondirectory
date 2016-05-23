@@ -7,6 +7,7 @@ import copy
 import logging
 import pprint
 import ldap
+import ldap.modlist
 
 log = logging.getLogger(__name__)
 
