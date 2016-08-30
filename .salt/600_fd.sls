@@ -110,7 +110,7 @@ make-short-cron-1:
     - user: root
     - group: root
     - contents: |
-                */10 * * * * * root su root -c "{{cfg.data_root}}/scron.sh"
+                */10 * * * * root su root -c "{{cfg.data_root}}/scron.sh"
 {% endif %}
 
 {# NOMOREUSED: we have too much patches, easier to track with git #}
