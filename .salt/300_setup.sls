@@ -19,6 +19,10 @@ prepreqs-{{cfg.name}}:
       - {{ php.packages.ldap }}
       - {{ php.packages.dev }}
       - {{ php.packages.json }}
+      {% if php.php_ver[0] > '5' %}
+      - php{{php.php_ver[0:3]}}-mbstring
+      {% endif %}
+      - libarchive-extract-perl
       - sqlite3
       - libsqlite3-dev
       - mysql-client
@@ -79,7 +83,7 @@ prepreqs-{{cfg.name}}:
       - file: {{cfg.name}}-htaccess
 {% endfor %}
 {% endfor %}
-{% endif %}  
+{% endif %}
 
 {{cfg.name}}-dirs:
   file.directory:
