@@ -82,6 +82,37 @@ fd-activatemods:
      group='root',
      mode='640', prefix='fd-')}}
 
+{% if not cfg.data.get('fix_memberuids', False) %}
+make-short-cron-2-uid:
+  file.absent:
+    - names:
+      - "{{cfg.data_root}}/suidscron.sh"
+      - "/etc/cron.d/{{cfg.name}}suidscron"
+{%else %}
+make-short-cron-2-uid:
+  file.managed:
+    - name: "{{cfg.data_root}}/suidscron.sh"
+    - mode: 700
+    - user: root
+    - group: root
+    - contents: |
+                #!/bin/bash
+                salt-call --local -lall fix_memberuids.main >log 2>&1
+                if [ "x$?" != "x0" ];then
+                cat log
+                fi
+                rm -f log
+
+make-short-cron-1-uid:
+  file.managed:
+    - name: "/etc/cron.d/{{cfg.name}}suidscron"
+    - mode: 700
+    - user: root
+    - group: root
+    - contents: |
+                */10 * * * * root su root -c "{{cfg.data_root}}/suidscron.sh"
+{% endif %}
+
 {% if not cfg.data.get('short_mail', False) %}
 make-short-cron-2:
   file.absent:

@@ -164,7 +164,8 @@ makina-projects.projectname:
           user_ttl: 300
           gc_ttl: 0
           shm_size: "64M"
-    short_mail: true
+    short_mail: false
+    fix_memberuids: false
     #
     deb_ver:
       "1.0.9": "1.0.9-1"
